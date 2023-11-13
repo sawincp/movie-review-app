@@ -1,6 +1,8 @@
 import { useState, useEffect, createContext } from "react";
 import { Routes, Route} from "react-router-dom"
 
+import Login from "./Login";
+
 export const CurrentUserContext = createContext(null)
 
 function App() {
@@ -21,7 +23,7 @@ function App() {
     <CurrentUserContext.Provider value={{currentUser, setCurrentUser}}>
       {currentUser ? (
         <Routes>
-          <Route />
+          <Route exact path="/" element={<h1>Hello!</h1>} />
         </Routes>
       ) : (
         <Login />
