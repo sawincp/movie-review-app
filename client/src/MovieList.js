@@ -1,8 +1,15 @@
 import React from 'react'
 
-function MovieList() {
+function MovieList({movies}) {
+    if (!movies) return("Loading...")
+
+    const listOfMOvies = movies.map(movie =>
+        <p key={movie.id}>{movie.title}</p>)
+
   return (
-    <div>MovieList</div>
+    <div>MovieList
+        {listOfMOvies}
+    </div>
   )
 }
 

@@ -4,16 +4,22 @@ import NavBar from './NavBar'
 
 
 function Profile() {
-    const {currentUser}= useContext(CurrentUserContext)
+    const {currentUser, setCurrentUser}= useContext(CurrentUserContext)
+
+    function handleLogOutClick (){
+      fetch('/logout', { method: 'DELETE'}).then((r)=> {
+        if (r.ok){
+          setCurrentUser(null)
+        }
+      })
+    }
   
     return (
     <div>Profile
         <NavBar/>
 
         <h1>Hi!{currentUser.id}</h1>
-
-
-
+        <button onClick={handleLogOutClick}>Logout</button>
     </div>
   )
 }

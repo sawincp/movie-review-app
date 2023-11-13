@@ -9,6 +9,7 @@ export const CurrentUserContext = createContext(null)
 
 function App() {
   const [currentUser, setCurrentUser]= useState(null)
+  const [movieList, setMovieList] = ([])
 
   useEffect(() => {
     // auto-login
@@ -19,6 +20,12 @@ function App() {
     });
   }, []);
 
+  useEffect(()=>{
+    fetch('/movies').then((r)=>r.json()).then((movieList)=>setMovieList(movieList))
+  },[])
+
+
+
 
 
   return (
@@ -26,7 +33,7 @@ function App() {
       {currentUser ? (
         <Routes>
           <Route exact path="/" element= {<Profile />}/>
-          <Route exact path="/movies" element= {<MovieList />}/>
+          <Route exact path="/movies" element= {<MovieList movies={movieList}/>}/>
         </Routes>
       ) : (
         <Login />
