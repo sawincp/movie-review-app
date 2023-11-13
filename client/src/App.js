@@ -1,22 +1,32 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, createContext } from "react";
 import { Routes, Route} from "react-router-dom"
 
+export const CurrentUserContext = createContext(null)
+
 function App() {
-  const [count, setCount] = useState(0);
+  const [currentUser, setCurrentUser]= useState(null)
 
   useEffect(() => {
-    fetch("/hello")
-      .then((r) => r.json())
-      .then((data) => setCount(data.count));
+    // auto-login
+    fetch("/me").then((r) => {
+      if (r.ok) {
+        r.json().then((currentUser) => setCurrentUser(currentUser));
+      }
+    });
   }, []);
 
+
+
   return (
-    <div className="App">
-      <Routes>
-        <Route exact path= '/testing' element={<h1>Test Route</h1>}></Route>
-      <Route exact path="/" element={<h1>Page Count: {count}</h1>}></Route>
-      </Routes>
-    </div>
+    <CurrentUserContext.Provider value={{currentUser, setCurrentUser}}>
+      {currentUser ? (
+        <Routes>
+          <Route />
+        </Routes>
+      ) : (
+        <Login />
+      )}
+    </CurrentUserContext.Provider>
   );
 }
 
