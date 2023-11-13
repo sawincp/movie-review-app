@@ -10,7 +10,7 @@ function Profile() {
     <div>Profile
         <NavBar/>
 
-        <h1>Hi!{currentUser.username}</h1>
+        <h1>Hi!{currentUser.id}</h1>
 
 
 
