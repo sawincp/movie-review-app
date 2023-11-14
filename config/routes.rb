@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   delete "/logout", to: "sessions#destroy"
 
   get '/movies', to: "movies#show"
+  post 'movies', to: "movies#create"
 
   get '*path',
   to: 'fallback#index',
