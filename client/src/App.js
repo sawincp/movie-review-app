@@ -1,5 +1,6 @@
 import { useState, useEffect, createContext } from "react";
 import { Routes, Route} from "react-router-dom"
+import NavBar from "./NavBar";
 
 import Login from "./Login";
 import Profile from "./Profile";
@@ -9,7 +10,7 @@ export const CurrentUserContext = createContext(null)
 
 function App() {
   const [currentUser, setCurrentUser]= useState(null)
-  const [movieList, setMovieList] = useState([])
+  // const [movieList, setMovieList] = useState([])
 
   useEffect(() => {
     // auto-login
@@ -20,24 +21,27 @@ function App() {
     });
   }, []);
 
-  useEffect(()=>{
-    fetch('/movies')
-    .then((r)=> r.json())
-    .then((movieList)=>setMovieList(movieList))
-  }, [])
+  // useEffect(()=>{
+  //   fetch('/movies')
+  //   .then((r)=> r.json())
+  //   .then((movieList)=>setMovieList(movieList))
+  // }, [])
 
-  function handleAddMovie(newMovie){
-    setMovieList([...movieList, newMovie])
-  }
+  // function handleAddMovie(newMovie){
+  //   setMovieList([...movieList, newMovie])
+  // }
   
   return (
     <CurrentUserContext.Provider value={{currentUser, setCurrentUser}}>
       {currentUser ? (
+        <div>
+          <NavBar/>
         <Routes>
           <Route exact path="/" element= {<Profile />}/>
           <Route exact path="/movies" 
-          element= {<MovieList movies={movieList} onAddMovie={handleAddMovie}/>}/>
+          element= {<MovieList />}/>
         </Routes>
+        </div>
       ) : (
         <Login />
       )}

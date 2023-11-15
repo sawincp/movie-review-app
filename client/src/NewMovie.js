@@ -35,6 +35,7 @@ function NewMovie({ onAddMovie }) {
         <form onSubmit={handleSubmit}>
             <input 
             type="text" 
+            id='id'
             placeholder='Enter movie name...' 
             value={title} 
             onChange={(e)=>{setTitle(e.target.value)}} />

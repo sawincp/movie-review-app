@@ -1,29 +1,47 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import NewMovie from './NewMovie'
 
-function MovieList({movies, onAddMovie}) {
+function MovieList() {
 
   const [newMovieForm, setNewMovieForm] = useState(false)
+  const [movieList, setMovieList] = useState([])
+
+  useEffect(()=>{
+    fetch('/movies')
+    .then((r)=> r.json())
+    .then((movieList)=>setMovieList(movieList))
+  }, [])
   
-  if (!movies) return(<p>"Loading..."</p>)
+  if (!movieList) {
+    return <div>Loading...</div>;
+  }
 
   function handleNewMovieForm (){
     setNewMovieForm(!newMovieForm)
   }
 
-    const listOfMovies = movies.map(movie =>
-      <p key={movie.id}>{movie.title}</p>)
+ 
+  function handleAddMovie(newMovie){
+    setMovieList([...movieList, newMovie])
+  }
+
+  const listOfMovies = movieList.map(movie => (
+    <div key={movie.id}>
+      <h3>{movie.title}</h3>
+    </div>
+  ));
+
 
     return (
-    <div>
+    <>
       <h1>Movie List</h1>
       <button onClick={handleNewMovieForm}>Add New Movie</button>
       <hr></hr>
       {newMovieForm ?(
-        <NewMovie onAddMovie={onAddMovie} />
+        <NewMovie onAddMovie={handleAddMovie} />
       ): null}
       {listOfMovies}
-    </div>
+    </>
   )
 }
 

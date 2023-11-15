@@ -1,7 +1,5 @@
 import React, {useContext} from 'react'
 import { CurrentUserContext } from './App'
-import NavBar from './NavBar'
-
 
 function Profile() {
     const {currentUser, setCurrentUser}= useContext(CurrentUserContext)
@@ -14,13 +12,10 @@ function Profile() {
       })
     }
 
-
   
     return (
-    <div>Profile
-        <NavBar/>
-
-        <h1>Hi!{currentUser.id}</h1>
+    <div>
+        <h1>Hi!{currentUser.username}</h1>
         <button onClick={handleLogOutClick}>Logout</button>
     </div>
   )
