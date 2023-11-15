@@ -5,9 +5,9 @@ class MoviesController < ApplicationController
     end
 
     def create
-        @user = @current_user
-        @movie = @user.movies.create!(movie_params)
-        render json: {movie: @movie}, status: :created
+        user = @current_user
+        movie = user.movies.create!(movie_params)
+        render json: {movie: movie}, status: :created
 
     end
 
