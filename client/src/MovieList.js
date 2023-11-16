@@ -1,16 +1,9 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import NewMovie from './NewMovie'
 
-function MovieList() {
+function MovieList({movieList, onAddMovie}) {
 
   const [newMovieForm, setNewMovieForm] = useState(false)
-  const [movieList, setMovieList] = useState([])
-
-  useEffect(()=>{
-    fetch('/movies')
-    .then((r)=> r.json())
-    .then((movieList)=>setMovieList(movieList))
-  }, [])
   
   if (!movieList) {
     return <div>Loading...</div>;
@@ -18,11 +11,6 @@ function MovieList() {
 
   function handleNewMovieForm (){
     setNewMovieForm(!newMovieForm)
-  }
-
- 
-  function handleAddMovie(newMovie){
-    setMovieList([...movieList, newMovie])
   }
 
   const listOfMovies = movieList.map(movie => (
@@ -38,7 +26,7 @@ function MovieList() {
       <button onClick={handleNewMovieForm}>Add New Movie</button>
       <hr></hr>
       {newMovieForm ?(
-        <NewMovie onAddMovie={handleAddMovie} />
+        <NewMovie onAddMovie={onAddMovie} />
       ): null}
       {listOfMovies}
     </>

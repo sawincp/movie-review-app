@@ -1,6 +1,7 @@
 import React, {useContext} from 'react'
 import { CurrentUserContext } from './App'
 
+
 function Profile() {
     const {currentUser, setCurrentUser}= useContext(CurrentUserContext)
 
@@ -12,6 +13,7 @@ function Profile() {
       })
     }
 
+   
   
     return (
     <div>

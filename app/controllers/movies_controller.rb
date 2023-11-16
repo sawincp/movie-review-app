@@ -1,12 +1,15 @@
 class MoviesController < ApplicationController
 
-    def show
+    skip_before_action :authorize, only: [:index]
+    
+
+    def index
         render json: Movie.all
     end
 
     def create
-        user = @current_user
-        movie = user.movies.create!(movie_params)
+        # user = @current_user
+        movie = Movie.create!(movie_params)
         render json: {movie: movie}, status: :created
 
     end

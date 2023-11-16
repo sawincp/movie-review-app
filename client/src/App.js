@@ -10,7 +10,7 @@ export const CurrentUserContext = createContext(null)
 
 function App() {
   const [currentUser, setCurrentUser]= useState(null)
-  // const [movieList, setMovieList] = useState([])
+  const [movieList, setMovieList] = useState([])
 
   useEffect(() => {
     // auto-login
@@ -21,15 +21,15 @@ function App() {
     });
   }, []);
 
-  // useEffect(()=>{
-  //   fetch('/movies')
-  //   .then((r)=> r.json())
-  //   .then((movieList)=>setMovieList(movieList))
-  // }, [])
+  useEffect(()=>{
+    fetch('/movies')
+    .then((r)=> r.json())
+    .then((movieList)=>setMovieList(movieList))
+  }, [])
 
-  // function handleAddMovie(newMovie){
-  //   setMovieList([...movieList, newMovie])
-  // }
+  function handleAddMovie(newMovie){
+    setMovieList([...movieList, newMovie])
+  }
   
   return (
     <CurrentUserContext.Provider value={{currentUser, setCurrentUser}}>
@@ -39,7 +39,7 @@ function App() {
         <Routes>
           <Route exact path="/" element= {<Profile />}/>
           <Route exact path="/movies" 
-          element= {<MovieList />}/>
+          element= {<MovieList movieList={movieList} onAddMovie={handleAddMovie} />}/>
         </Routes>
         </div>
       ) : (
