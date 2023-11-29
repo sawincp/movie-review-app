@@ -4,14 +4,13 @@ class MoviesController < ApplicationController
     
 
     def index
-        render json: Movie.all
+        render json: Movie.includes(:reviews).all
     end
 
     def create
-        # user = @current_user
-        movie = Movie.create!(movie_params)
+        user = @current_user
+        movie = user.movies.create!(movie_params)
         render json: {movie: movie}, status: :created
-
     end
 
     private

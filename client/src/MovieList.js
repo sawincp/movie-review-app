@@ -1,4 +1,5 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import NewMovie from './NewMovie'
 
 function MovieList({movieList, onAddMovie}) {
@@ -16,6 +17,9 @@ function MovieList({movieList, onAddMovie}) {
   const listOfMovies = movieList.map(movie => (
     <div key={movie.id}>
       <h3>{movie.title}</h3>
+      <Link to={`/movies/${movie.id}/reviews`} >
+            <p>Reviews</p>
+      </Link>
     </div>
   ));
 

@@ -9,6 +9,7 @@ function NewMovie({ onAddMovie }) {
         e.preventDefault();
         setIsLoading(true)
         const newMovie = { title: title };
+        
         fetch("/movies", {
           method: "POST",
           headers: {
