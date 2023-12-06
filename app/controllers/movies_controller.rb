@@ -1,15 +1,19 @@
 class MoviesController < ApplicationController
 
-    skip_before_action :authorize, only: [:index]
-    
+    before_action :authorize, except: [:index, :show]
 
     def index
-        render json: Movie.includes(:reviews).all
+        render json: Movie.includes(:reviews).all.to_json(include: :reviews)
     end
 
+    def show
+        movie = Movie.find(params[:id])
+        render json: movie.to_json(include: :reviews)
+    end
+  
+
     def create
-        user = @current_user
-        movie = user.movies.create!(movie_params)
+        movie = Movie.create!(movie_params)
         render json: {movie: movie}, status: :created
     end
 

@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { useParams } from 'react-router-dom'
 import NewReview from './NewReview'
 
-function ReviewList({movieList, handleAddReview}) {
+function ReviewList({movieList, onAddReview}) {
   
   const [newReviewForm, setNewReviewForm] = useState(false)
   const params = useParams()
@@ -11,11 +11,13 @@ function ReviewList({movieList, handleAddReview}) {
 
   if(!movie){return <div>Loading...</div>}
 
-  const {reviews}= movie
-
     function handleNewReviewForm (){
       setNewReviewForm(!newReviewForm)
     }
+
+    const movieReviews = movie.reviews.map((review) => {
+      return<p key={review.id}>{review.review}</p>
+    })
 
   
     return (
@@ -24,20 +26,10 @@ function ReviewList({movieList, handleAddReview}) {
         <hr />
         <button onClick={handleNewReviewForm}>Add Review</button>
         {newReviewForm ? (
-          <NewReview handleAddReview={handleAddReview} />
-        ): null}
-        {reviews ? (
-           <ul>
-           {reviews.map((review)=>(
-             <li key={review.id}>
-               Review: {review.content}
-             </li>
-           ))}
-         </ul>
-
-        ): <p>No Reviews For this Moive</p>}
+          <NewReview onAddReview={onAddReview} />
+        ): false}
+        {movieReviews}
        
-
     </div>
   )
 }

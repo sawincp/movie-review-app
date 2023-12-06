@@ -8,6 +8,7 @@ function NewMovie({ onAddMovie }) {
     function handleSubmit(e) {
         e.preventDefault();
         setIsLoading(true)
+       
         const newMovie = { title: title };
         
         fetch("/movies", {

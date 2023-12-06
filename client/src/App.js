@@ -1,7 +1,6 @@
 import { useState, useEffect, createContext } from "react";
 import { Routes, Route} from "react-router-dom"
 import NavBar from "./NavBar";
-
 import Login from "./Login";
 import Profile from "./Profile";
 import MovieList from "./MovieList";
@@ -12,6 +11,7 @@ export const CurrentUserContext = createContext(null)
 function App() {
   const [currentUser, setCurrentUser]= useState(null)
   const [movieList, setMovieList] = useState([])
+ 
 
   useEffect(() => {
     // auto-login
@@ -24,38 +24,34 @@ function App() {
 
   useEffect(()=>{
     fetch('/movies')
-    .then((r)=> r.json())
+    .then((r)=>r.json())
     .then((movieList)=>setMovieList(movieList))
   }, [])
 
-  // console.log("Movies", movieList)
+  // console.log("Movie List", movieList)
 
   function handleAddMovie(newMovie) {
     setMovieList((previousMovies) => [...previousMovies, newMovie]);
   }
-  
 
   function handleAddReview(newReview) {
-    // Assuming newReview has properties like user_id, content, etc.
+    // console.log("Handling Add Review...")
     setMovieList((previousMovies) => {
-      // Assuming newReview.movie_id is the ID of the movie associated with the review
+      
       const updatedMovies = previousMovies.map((movie) => {
         if (movie.id === newReview.movie_id) {
-          // Add the new review to the reviews array of the specific movie
           return {
             ...movie,
             reviews: [...movie.reviews, newReview],
           };
         }
-        return movie;
+        return movie
       });
-  
+      // console.log("Updated Movie:", updatedMovies)
       return updatedMovies;
     });
   }
-  
 
-  
   return (
     <CurrentUserContext.Provider value={{currentUser, setCurrentUser}}>
       {currentUser ? (
@@ -66,7 +62,7 @@ function App() {
           <Route exact path="/movies" 
           element= {<MovieList movieList={movieList} onAddMovie={handleAddMovie} />}/>
           <Route path="/movies/:id/reviews"
-          element= {<ReviewList movieList={movieList} handleAddReview={handleAddReview} />} />
+          element= {<ReviewList movieList={movieList} onAddReview={handleAddReview} />} />
         </Routes>
         </div>
       ) : (
