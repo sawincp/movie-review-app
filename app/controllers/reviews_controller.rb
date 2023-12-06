@@ -8,7 +8,6 @@ class ReviewsController < ApplicationController
    
    
    def create
-      movie = Movie.find(params[:movie_id])
       review = @current_user.reviews.create!(review_params)
       render json: review
     end
