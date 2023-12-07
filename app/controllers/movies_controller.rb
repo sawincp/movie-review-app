@@ -3,12 +3,12 @@ class MoviesController < ApplicationController
     before_action :authorize, except: [:index, :show]
 
     def index
-        render json: Movie.includes(:reviews).all.to_json(include: :reviews)
+        render json: Movie.all, each_serializer: MovieSerializer
     end
 
     def show
         movie = Movie.find(params[:id])
-        render json: movie.to_json(include: :reviews)
+        render json: movie, serializer: MovieSerializer
     end
   
 

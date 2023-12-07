@@ -28,16 +28,13 @@ function App() {
     .then((movieList)=>setMovieList(movieList))
   }, [])
 
-  // console.log("Movie List", movieList)
 
   function handleAddMovie(newMovie) {
     setMovieList((previousMovies) => [...previousMovies, newMovie]);
   }
 
   function handleAddReview(newReview) {
-    // console.log("Handling Add Review...")
     setMovieList((previousMovies) => {
-      
       const updatedMovies = previousMovies.map((movie) => {
         if (movie.id === newReview.movie_id) {
           return {
@@ -47,7 +44,6 @@ function App() {
         }
         return movie
       });
-      // console.log("Updated Movie:", updatedMovies)
       return updatedMovies;
     });
   }

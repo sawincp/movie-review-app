@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react'
+import React, {useState} from 'react'
 import {useParams} from 'react-router-dom'
 
 function NewReview({ onAddReview }) {
@@ -30,8 +30,8 @@ function NewReview({ onAddReview }) {
       if(r.ok){
         setReview('')
         setErrors([])
-        console.log("New Review:", newReview)
         r.json().then(onAddReview)
+        // r.json().then((data)=>console.log(data))
       
       }else{
         r.json().then((err)=>setErrors(err.errors))
