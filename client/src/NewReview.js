@@ -31,8 +31,6 @@ function NewReview({ onAddReview }) {
         setReview('')
         setErrors([])
         r.json().then(onAddReview)
-        // r.json().then((data)=>console.log(data))
-      
       }else{
         r.json().then((err)=>setErrors(err.errors))
       }

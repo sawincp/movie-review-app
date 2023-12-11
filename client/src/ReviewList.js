@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import { useParams } from 'react-router-dom'
 import NewReview from './NewReview'
+import Review from './Review'
 
 function ReviewList({movieList, onAddReview}) {
   
@@ -9,7 +10,6 @@ function ReviewList({movieList, onAddReview}) {
   const movieId = Number(params.id)
   const movie = movieList.find((movie)=> movie.id === movieId)
 
-  // console.log("Movie List: ", movie)
 
   if(!movie){return <div>Loading...</div>}
 
@@ -17,9 +17,15 @@ function ReviewList({movieList, onAddReview}) {
       setNewReviewForm(!newReviewForm)
     }
 
-    const movieReviews = movie.reviews.map((review) => {
-      return<p key={review.id}>{review.review}</p>
-    })
+    // const movieReviews = movie.reviews.map((review) => {
+    //   return<p key={review.id}>{review.review}</p>
+    // })
+
+    const movieReviews = movie.reviews.map((review)=>(
+      <Review
+        key={review.id}
+        review={review} />
+    ))
 
   
     return (
