@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
 import { useParams } from 'react-router-dom'
-// import { CurrentUserContext } from './App'
 import NewReview from './NewReview'
 import Review from './Review'
 
@@ -19,7 +18,7 @@ function ReviewList({movieList, onAddReview, onDeleteReview}) {
       setNewReviewForm(!newReviewForm)
     }
 
-    const handleDeleteReview = (reviewId)=>{
+    const handleDeleteReview = (reviewId) =>{
       onDeleteReview(movieId, reviewId)
     }
 
@@ -28,6 +27,8 @@ function ReviewList({movieList, onAddReview, onDeleteReview}) {
       <Review
         key={review.id}
         review={review}
+        //new line
+        movieId={movieId}
         onDeleteReview={handleDeleteReview} />
     ))
 
