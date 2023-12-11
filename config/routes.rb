@@ -8,23 +8,6 @@ Rails.application.routes.draw do
     resources :reviews 
   end
   
-  # resources :movies do
-  #   resources :reviews, only: [:index, :create]
-  # end
-
-  # resources :reviews
-
-  # resources :users do
-  #   resources :reviews , only: [:index]
-  # end
-
-  # resources :movies do
-  #   resources :reviews
-  # end
-
-  # get '/movies', to: "movies#index"
-  # post 'movies', to: "movies#create"
-
   
   get '*path',
   to: 'fallback#index',

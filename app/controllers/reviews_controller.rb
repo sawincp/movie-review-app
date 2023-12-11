@@ -1,5 +1,7 @@
 class ReviewsController < ApplicationController
 
+   before_action :authorize_user , only: [:update, :destroy]
+
    def index
       movie = Movie.find(params[:movie_id])
       reviews = movie.reviews
@@ -11,6 +13,19 @@ class ReviewsController < ApplicationController
       review = @current_user.reviews.create!(review_params)
       render json: review, serializer: ReviewSerializer
     end
+
+    def update
+      review = @current_user.reviews.find(params[:id])
+      render json: review, serializer: ReviewSerializer
+    end
+
+    def destroy
+      review = @current_user.reviews.find(params[:id])
+      review.destroy
+      head :no_content
+    end
+
+
 
    private
    

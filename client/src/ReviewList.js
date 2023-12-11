@@ -1,9 +1,11 @@
 import React, {useState} from 'react'
 import { useParams } from 'react-router-dom'
+// import { CurrentUserContext } from './App'
 import NewReview from './NewReview'
 import Review from './Review'
 
-function ReviewList({movieList, onAddReview}) {
+function ReviewList({movieList, onAddReview, onDeleteReview}) {
+
   
   const [newReviewForm, setNewReviewForm] = useState(false)
   const params = useParams()
@@ -17,14 +19,16 @@ function ReviewList({movieList, onAddReview}) {
       setNewReviewForm(!newReviewForm)
     }
 
-    // const movieReviews = movie.reviews.map((review) => {
-    //   return<p key={review.id}>{review.review}</p>
-    // })
+    const handleDeleteReview = (reviewId)=>{
+      onDeleteReview(movieId, reviewId)
+    }
+
 
     const movieReviews = movie.reviews.map((review)=>(
       <Review
         key={review.id}
-        review={review} />
+        review={review}
+        onDeleteReview={handleDeleteReview} />
     ))
 
   

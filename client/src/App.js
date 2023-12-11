@@ -11,6 +11,7 @@ export const CurrentUserContext = createContext(null)
 function App() {
   const [currentUser, setCurrentUser]= useState(null)
   const [movieList, setMovieList] = useState([])
+  const [error, setError]= useState(null)
  
 
   useEffect(() => {
@@ -48,17 +49,54 @@ function App() {
     });
   }
 
+  function handleDeleteReview(movieId, reviewId) {
+    fetch(`/movies/${movieId}/reviews/${reviewId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Error deleting review: ${response.statusText}`);
+        }
+        return response.json();
+      })
+      .then(() => {
+        setMovieList((previousMovies) => {
+          return previousMovies.map((movie) => {
+            if (movie.id === movieId) {
+              const updatedReviews = movie.reviews.filter(
+                (review) => review.id !== reviewId
+              );
+              return {
+                ...movie,
+                reviews: updatedReviews,
+              };
+            }
+            return movie;
+          });
+        });
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
+  }
+
+  
+
   return (
     <CurrentUserContext.Provider value={{currentUser, setCurrentUser}}>
       {currentUser ? (
         <div>
           <NavBar/>
+          {error && <p style={{ color: "red" }}>{error}</p>} {/* Display error */}
         <Routes>
           <Route exact path="/" element= {<Profile />}/>
           <Route exact path="/movies" 
           element= {<MovieList movieList={movieList} onAddMovie={handleAddMovie} />}/>
           <Route path="/movies/:id/reviews"
-          element= {<ReviewList movieList={movieList} onAddReview={handleAddReview} />} />
+          element= {<ReviewList movieList={movieList} onAddReview={handleAddReview} onDeleteReview={handleDeleteReview} />} />
         </Routes>
         </div>
       ) : (

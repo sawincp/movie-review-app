@@ -12,8 +12,6 @@ function Profile() {
         }
       })
     }
-
-   
   
     return (
     <div>
