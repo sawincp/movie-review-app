@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-function Review({review, movieId, onDeleteReview}) {
+function Review({review, username, movieId, onDeleteReview}) {
 
   const [error, setError]= useState(null)
   
@@ -21,6 +21,7 @@ function Review({review, movieId, onDeleteReview}) {
     <div>
       {error && <p style={{ color: "red" }}>{error}</p>}
         <p>{review.review}</p>
+        <p>Reviewer: {username}</p>
         <button onClick={handleDeleteReview}>
           <span role="img" aria-label="delete">
               🗑

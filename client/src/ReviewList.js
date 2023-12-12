@@ -27,7 +27,7 @@ function ReviewList({movieList, onAddReview, onDeleteReview}) {
       <Review
         key={review.id}
         review={review}
-        //new line
+        username ={ review.user.username }
         movieId={movieId}
         onDeleteReview={handleDeleteReview} />
     ))
