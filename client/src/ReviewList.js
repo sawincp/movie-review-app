@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import NewReview from './NewReview'
 import Review from './Review'
 
-function ReviewList({movieList, onAddReview, onDeleteReview}) {
+function ReviewList({movieList, onAddReview, onUpdateReview, onDeleteReview}) {
 
   
   const [newReviewForm, setNewReviewForm] = useState(false)
@@ -22,6 +22,10 @@ function ReviewList({movieList, onAddReview, onDeleteReview}) {
       onDeleteReview(movieId, reviewId)
     }
 
+    const handleUpdateReview = (reviewId) =>{
+      onUpdateReview(movieId, reviewId)
+    }
+
 
     const movieReviews = movie.reviews.map((review)=>(
       <Review
@@ -29,7 +33,9 @@ function ReviewList({movieList, onAddReview, onDeleteReview}) {
         review={review}
         username ={ review.user.username }
         movieId={movieId}
-        onDeleteReview={handleDeleteReview} />
+        onDeleteReview={handleDeleteReview}
+        onUpdateReview={handleUpdateReview}
+        />
     ))
 
   

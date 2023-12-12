@@ -48,6 +48,25 @@ function App() {
     });
   }
 
+  function handleUpdateReview(movieId, updatedReview){
+    setMovieList((previousMovies)=>{
+      return previousMovies.map((movie)=>{
+        if(movie.id === movieId){
+          const updatedReviews = movie.reviews.map((review)=>{
+            if(review.id === updatedReview.id){
+              return updatedReview
+            }
+            return review
+          })
+          return {
+            ...movie, 
+            reviews: updatedReviews
+          }
+        }
+        return movie
+      })
+    })
+  }
 
   function handleDeleteReview(movieId, reviewId){
     setMovieList((previousMovies)=>{
@@ -74,7 +93,14 @@ function App() {
           <Route exact path="/movies" 
           element= {<MovieList movieList={movieList} onAddMovie={handleAddMovie} />}/>
           <Route path="/movies/:id/reviews"
-          element= {<ReviewList movieList={movieList} onAddReview={handleAddReview} onDeleteReview={handleDeleteReview} />} />
+          element= {
+          <ReviewList 
+          movieList={movieList} 
+          onAddReview={handleAddReview} 
+          onDeleteReview={handleDeleteReview} 
+          onUpdateReview= {handleUpdateReview}/>
+          
+          }/>
         </Routes>
         </div>
       ) : (
