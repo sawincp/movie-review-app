@@ -14,9 +14,20 @@ class ReviewsController < ApplicationController
       render json: review, serializer: ReviewSerializer
     end
 
+    # def update
+    #   review = @current_user.reviews.find(params[:id])
+    #   render json: review, serializer: ReviewSerializer
+    # end
+
     def update
       review = @current_user.reviews.find(params[:id])
-      render json: review, serializer: ReviewSerializer
+    
+      # Ensure that the review is found
+      if review.update(review_params)
+        render json: review, serializer: ReviewSerializer
+      else
+        render json: { errors: review.errors.full_messages }, status: :unprocessable_entity
+      end
     end
 
     def destroy
