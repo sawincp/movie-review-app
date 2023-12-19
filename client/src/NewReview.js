@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {useParams} from 'react-router-dom'
 
-function NewReview({ onAddReview }) {
+function NewReview({ onAddReview, onUpdateUser}) {
 
   const {id: movieID}= useParams()
   const [review, setReview]= useState('')
@@ -30,7 +30,10 @@ function NewReview({ onAddReview }) {
       if(r.ok){
         setReview('')
         setErrors([])
-        r.json().then(onAddReview)
+        r.json().then((data)=>{
+          onAddReview(data)
+          onUpdateUser(data)
+        })
       }else{
         r.json().then((err)=>setErrors(err.errors))
       }

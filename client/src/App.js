@@ -11,7 +11,7 @@ export const CurrentUserContext = createContext(null)
 function App() {
   const [currentUser, setCurrentUser]= useState(null)
   const [movieList, setMovieList] = useState([])
- 
+
 
   useEffect(() => {
     // auto-login
@@ -28,12 +28,17 @@ function App() {
     .then((movieList)=>setMovieList(movieList))
   }, [])
 
+  function handleUpdateCurrentUser(updatedUser){
+    setCurrentUser(updatedUser)
+  }
+
+  console.log("current user obj", currentUser)
 
   function handleAddMovie(newMovie) {
     setMovieList((previousMovies) => [...previousMovies, newMovie]);
   }
 
-  function handleAddReview(newReview) {
+  function handleAddReview(newReview) {  
     setMovieList((previousMovies) => {
       const updatedMovies = previousMovies.map((movie) => {
         if (movie.id === newReview.movie_id) {
@@ -98,7 +103,9 @@ function App() {
           movieList={movieList} 
           onAddReview={handleAddReview} 
           onDeleteReview={handleDeleteReview} 
-          onUpdateReview= {handleUpdateReview}/>
+          onUpdateReview= {handleUpdateReview}
+          onUpdateUser = {handleUpdateCurrentUser}
+          />
           
           }/>
         </Routes>

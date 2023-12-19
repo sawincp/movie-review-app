@@ -22,7 +22,7 @@ function NewMovie({ onAddMovie }) {
           if (r.ok) {
             setTitle("")
             setErrors([])
-            onAddMovie(newMovie)
+            r.json().then(onAddMovie)
           } else {
             r.json().then((err) => setErrors(err.errors));
           }

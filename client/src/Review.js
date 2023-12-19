@@ -1,24 +1,45 @@
 import React, {useState} from 'react'
 import EditReviewForm from './EditReviewForm'
 
-function Review({review, username, movieId, onUpdateReview, onDeleteReview}) {
+function Review({review, username, movieId, onUpdateUser, onUpdateReview, onDeleteReview}) {
 
   const [error, setError]= useState(null)
   const [isEditing, setIsEditing]= useState(false)
-  
-  
-  const handleDeleteReview = () =>{
+
+  const handleDeleteReview = () => {
     fetch(`/movies/${movieId}/reviews/${review.id}`, {
       method: 'DELETE',
     })
-    .then((r)=>{
-      if(!r.ok){
-        throw new Error(`Error deleting review: ${r.statusText}`)
-      }
-      onDeleteReview(review.id)
-    })
-    .catch((error) => {setError(error.message)});
-  }
+      .then((r) => {
+        if (!r.ok) {
+          throw new Error(`Error deleting review: ${r.statusText}`);
+        }
+        return r.json(); // Assuming the server sends back the updated user information
+      })
+      .then((updatedUser) => {
+        onDeleteReview(review.id);
+        onUpdateUser(updatedUser); // Pass the updated user information to onUpdateUser
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
+  };
+  
+  
+  // const handleDeleteReview = () =>{
+  //   fetch(`/movies/${movieId}/reviews/${review.id}`, {
+  //     method: 'DELETE',
+  //   })
+  //   .then((r)=>{
+  //     if(!r.ok){
+  //       throw new Error(`Error deleting review: ${r.statusText}`)
+  //     }
+  //     return r.json()
+  //     onDeleteReview(review.id)
+  //     onUpdateUser()
+  //   })
+  //   .catch((error) => {setError(error.message)});
+  // }
 
   const handleUpdateReview = (updatedReview)=>{
     onUpdateReview(updatedReview)

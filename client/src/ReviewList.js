@@ -3,8 +3,7 @@ import { useParams } from 'react-router-dom'
 import NewReview from './NewReview'
 import Review from './Review'
 
-function ReviewList({movieList, onAddReview, onUpdateReview, onDeleteReview}) {
-
+function ReviewList({movieList, onUpdateUser, onAddReview, onUpdateReview, onDeleteReview}) {
   
   const [newReviewForm, setNewReviewForm] = useState(false)
   const params = useParams()
@@ -26,26 +25,25 @@ function ReviewList({movieList, onAddReview, onUpdateReview, onDeleteReview}) {
       onUpdateReview(movieId, reviewId)
     }
 
-
     const movieReviews = movie.reviews.map((review)=>(
       <Review
         key={review.id}
         review={review}
-        username ={ review.user.username }
+        username ={review.username}
         movieId={movieId}
+        onUpdateUser={onUpdateUser}
         onDeleteReview={handleDeleteReview}
         onUpdateReview={handleUpdateReview}
         />
     ))
-
-  
+   
     return (
     <div>
         <h1>Reviews For {movie.title}</h1>
         <hr />
         <button onClick={handleNewReviewForm}>Add Review</button>
         {newReviewForm ? (
-          <NewReview onAddReview={onAddReview} />
+          <NewReview onAddReview={onAddReview} onUpdateUser={onUpdateUser} />
         ): false}
         {movieReviews}
        
