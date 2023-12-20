@@ -22,6 +22,8 @@ function App() {
     });
   }, []);
 
+  console.log("Current User:", currentUser)
+
   useEffect(()=>{
     fetch('/movies')
     .then((r)=>r.json())
@@ -30,13 +32,14 @@ function App() {
 
   function handleUpdateCurrentUser(updatedUser){
     setCurrentUser(updatedUser)
+    console.log("Updated User:", updatedUser)
   }
 
-  console.log("current user obj", currentUser)
 
   function handleAddMovie(newMovie) {
     setMovieList((previousMovies) => [...previousMovies, newMovie]);
   }
+
 
   function handleAddReview(newReview) {  
     setMovieList((previousMovies) => {

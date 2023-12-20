@@ -14,32 +14,17 @@ function Review({review, username, movieId, onUpdateUser, onUpdateReview, onDele
         if (!r.ok) {
           throw new Error(`Error deleting review: ${r.statusText}`);
         }
-        return r.json(); // Assuming the server sends back the updated user information
+        return r.json();
       })
       .then((updatedUser) => {
         onDeleteReview(review.id);
-        onUpdateUser(updatedUser); // Pass the updated user information to onUpdateUser
+        onUpdateUser(updatedUser);
       })
       .catch((error) => {
         setError(error.message);
       });
   };
   
-  
-  // const handleDeleteReview = () =>{
-  //   fetch(`/movies/${movieId}/reviews/${review.id}`, {
-  //     method: 'DELETE',
-  //   })
-  //   .then((r)=>{
-  //     if(!r.ok){
-  //       throw new Error(`Error deleting review: ${r.statusText}`)
-  //     }
-  //     return r.json()
-  //     onDeleteReview(review.id)
-  //     onUpdateUser()
-  //   })
-  //   .catch((error) => {setError(error.message)});
-  // }
 
   const handleUpdateReview = (updatedReview)=>{
     onUpdateReview(updatedReview)

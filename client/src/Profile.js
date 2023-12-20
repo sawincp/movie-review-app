@@ -12,6 +12,8 @@ function Profile() {
         }
       })
     }
+
+    console.log("Current User:", currentUser)
     
     // const myMovies= currentUser.movies.map((movie)=> <li key={movie.id}>{movie.title}</li>)
 

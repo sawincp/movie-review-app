@@ -32,7 +32,8 @@ function NewReview({ onAddReview, onUpdateUser}) {
         setErrors([])
         r.json().then((data)=>{
           onAddReview(data)
-          onUpdateUser(data)
+          onUpdateUser(data.user)
+          console.log("Server Response:", data)
         })
       }else{
         r.json().then((err)=>setErrors(err.errors))

@@ -10,6 +10,8 @@ function ReviewList({movieList, onUpdateUser, onAddReview, onUpdateReview, onDel
   const movieId = Number(params.id)
   const movie = movieList.find((movie)=> movie.id === movieId)
 
+  // console.log("Movie Reviews: ", movie)
+
 
   if(!movie){return <div>Loading...</div>}
 
