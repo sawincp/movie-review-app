@@ -20,7 +20,7 @@ class ReviewsController < ApplicationController
       review = @current_user.reviews.find(params[:id])
       if review.update(review_params)
         # render json: review, serializer: ReviewSerializer
-        render json: reviews
+        render json: review
       else
         render json: { errors: review.errors.full_messages }, status: :unprocessable_entity
       end

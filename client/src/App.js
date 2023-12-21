@@ -22,7 +22,7 @@ function App() {
     });
   }, []);
 
-  console.log("Current User:", currentUser)
+  // console.log("Current User:", currentUser)
 
   useEffect(()=>{
     fetch('/movies')
@@ -32,7 +32,7 @@ function App() {
 
   function handleUpdateCurrentUser(updatedUser){
     setCurrentUser(updatedUser)
-    console.log("Updated User:", updatedUser)
+    // console.log("Updated User:", updatedUser)
   }
 
 
