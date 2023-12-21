@@ -31,3 +31,5 @@ This is a Movie Review application built with a React frontend and a Rails backe
 
 ##Application Description
 
+On page load, if the user hasn't already logged in, they will be directed to a login page or be given the option to sign up.
+
