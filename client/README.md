@@ -33,3 +33,16 @@ This is a Movie Review application built with a React frontend and a Rails backe
 
 On page load, if the user hasn't already logged in, they will be directed to a login page or be given the option to sign up.
 
+![Log In](./Images/Log_in.png)
+
+![Sign_up](./Images/Sign_up.png)
+
+After the user is successfully logged in, they will be looking at their profile page that will display a welcome message along with a movie list that will show which movies they have reviewed (if any) and a navigation bar that will allow the user to move between their profile page and movie list page. 
+
+![Profile](./Images/profile.png)
+
+When the user clicks on Movies in the nave bar, they will be brought to the movie list page that will display a list of all the movies from the database. 
+
+![Movie_List](./Images/Movie_list.png)
+
+
