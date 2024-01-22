@@ -7,6 +7,10 @@ Rails.application.routes.draw do
   resources :movies do 
     resources :reviews 
   end
+
+  # get "/popularmovies/:num", to: "movies#popularmovies"
+
+  get "/searchmovie/:title", to: "movies#search"
   
   
   get '*path',
